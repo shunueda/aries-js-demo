@@ -3,22 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -H 0.0.0.0",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -H 0.0.0.0",
+    "lint": "next lint",
+    "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|tsx)\" --write"
   },
   "dependencies": {
-    "@types/node": "20.6.0",
-    "@types/react": "18.2.21",
-    "@types/react-dom": "18.2.7",
-    "next": "13.4.19",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "5.2.2",
     "@aries-framework/core": "^0.4.1",
     "@aries-framework/indy-sdk": "^0.4.1",
     "@aries-framework/node": "^0.4.1",
-    "indy-sdk": "^1.16.0-dev-1655"
+    "@types/node": "20.6.0",
+    "@types/react": "18.2.21",
+    "@types/react-dom": "18.2.7",
+    "indy-sdk": "^1.16.0-dev-1655",
+    "next": "13.4.19",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.3"
   }
 }
