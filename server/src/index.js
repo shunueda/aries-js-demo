@@ -1,6 +1,7 @@
 import express from 'express'
 import agent from './agent'
 import multer from 'multer'
+import cors from 'cors'
 
 const app = express()
 
@@ -9,23 +10,24 @@ const upload = multer().none()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cors())
 
 app.post('/api/wallet/open', upload, async (req, res) => {
   console.log(req.body)
   try {
     await agent.wallet.close()
   } catch (e) {}
-  try {
-    console.log('Opening wallet...')
-    await agent.wallet.open({
+  console.log('Opening wallet...')
+  await agent.wallet
+    .open({
       id: req.body.wallet_id,
       key: req.body.wallet_key
     })
-    console.log('Wallet opened!')
-    res.status(200).json(agent.wallet.walletConfig)
-  } catch (e) {
-    res.status(503).send(e.message) // It's a good practice to send an error message for debugging
-  }
+    .catch(() => {
+      res.status(400).json({ error: 'Invalid wallet ID or key' })
+    })
+  console.log('Wallet opened!')
+  res.status(200).json(agent.wallet.walletConfig)
 })
 
 app.get('/api/dids', async (req, res) => {

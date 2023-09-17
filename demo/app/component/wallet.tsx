@@ -11,17 +11,19 @@ export default function Wallet() {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    console.log(formData.get('wallet_id'))
-    console.log(formData.get('wallet_key'))
     const response = await fetch('http://localhost:4000/api/wallet/open', {
       method: 'POST',
       body: formData
     })
-    const data = await response.json()
-    setWallet({
-      id: data.id,
-      key: data.key
-    })
+    if (response.status == 200) {
+      const data = await response.json()
+      setWallet({
+        id: data.id,
+        key: data.key
+      })
+    } else {
+      window.alert('Failed to open wallet')
+    }
   }
 
   return (
