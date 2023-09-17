@@ -21,6 +21,7 @@ export default function Wallet() {
         id: data.id,
         key: data.key
       })
+      window.alert(`Connected to wallet with id: ${data.id}`)
     } else {
       window.alert('Failed to open wallet')
     }
