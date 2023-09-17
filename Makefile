@@ -4,3 +4,4 @@ all:
 
 include docker.mk
 include frontend.mk
+include backend.mk

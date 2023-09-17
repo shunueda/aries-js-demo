@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "ESNext"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "target": "esnext",
+    "downlevelIteration": true
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "build",
+    "dist",
+    "test"
+  ],
+  "noEmit": true
+}

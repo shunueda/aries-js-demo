@@ -11,7 +11,9 @@ export default function Wallet() {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    const response = await fetch('/api/wallet/open', {
+    console.log(formData.get('wallet_id'))
+    console.log(formData.get('wallet_key'))
+    const response = await fetch('http://localhost:4000/api/wallet/open', {
       method: 'POST',
       body: formData
     })
