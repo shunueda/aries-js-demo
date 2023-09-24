@@ -1,0 +1,21 @@
+dids
+show
+show dids
+dids list
+wallet
+dids help
+did help
+did list
+wallet open wallet1 key
+wallet open wallet1 key
+wallet list
+wallet new wallet1 key
+wallet create wallet1 key
+did new
+wallet open wallet1 key
+did new
+wallet1 use did ErT33qawq8he4LX5Lg5pf7
+did use ErT33qawq8he4LX5Lg5pf7
+did list
+exit
+exit
