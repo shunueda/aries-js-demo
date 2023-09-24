@@ -1,0 +1,33 @@
+{
+  "lastUpdate": 1695519418836,
+  "blocks": {
+    "*": {
+      "values": {
+        "version": [
+          "3.6.3"
+        ],
+        "commandName": [
+          "init",
+          "set version",
+          "<none>"
+        ],
+        "workspaceCount": [
+          "1"
+        ],
+        "dependencyCount": [
+          "0"
+        ]
+      },
+      "enumerators": {
+        "projectCount": [
+          "cf153e99fa3d3f6405337b70ade3a0d18a898997683d235691669a18ec23151956142ea872f55f4996f4f162c1847eee00b6a48c0db28aa5065d143779129f35"
+        ]
+      },
+      "hits": {
+        "installCount": {
+          "pnp": 1
+        }
+      }
+    }
+  }
+}

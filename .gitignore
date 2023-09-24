@@ -1,11 +1,4 @@
-.bash_history
-.wget-hsts
-.python_history
-.cache
-.docker
-.indy_client
-.nvm
-.afj### Node template
+### Node template
 # Logs
 logs
 *.log
@@ -137,19 +130,20 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-### react template
-.DS_*
-*.log
-logs
-**/*.backup.*
-**/*.back.*
+### yarn template
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 
-node_modules
-bower_components
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
 
-*.sublime*
+# if you are NOT using Zero-installs, then:
+# comment the following lines
+!.yarn/cache
 
-psd
-thumb
-sketch
+# and uncomment the following lines
+# .pnp.*
 

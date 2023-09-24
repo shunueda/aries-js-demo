@@ -10,19 +10,14 @@
     "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|tsx)\" --write"
   },
   "dependencies": {
-    "@aries-framework/core": "^0.4.1",
-    "@aries-framework/indy-sdk": "^0.4.1",
-    "@aries-framework/node": "^0.4.1",
-    "@types/node": "20.6.0",
-    "@types/react": "18.2.21",
-    "@types/react-dom": "18.2.7",
-    "indy-sdk": "^1.16.0-dev-1655",
     "next": "13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
   },
   "devDependencies": {
-    "prettier": "^3.0.3"
+    "@types/node": "20.6.0",
+    "@types/react": "18.2.21",
+    "@types/react-dom": "18.2.7",
   }
 }

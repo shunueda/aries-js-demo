@@ -26,7 +26,7 @@ app.post('/api/wallet/open', upload, async (req, res) => {
     .catch(() => {
       res.status(400).json({ error: 'Invalid wallet ID or key' })
     })
-  console.log('Wallet opened!')
+  console.log(`${req.body.wallet_id} opened!`)
   res.status(200).json(agent.wallet.walletConfig)
 })
 

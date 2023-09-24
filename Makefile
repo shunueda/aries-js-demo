@@ -3,5 +3,3 @@ all:
 	exit 1
 
 include docker.mk
-include frontend.mk
-include backend.mk
