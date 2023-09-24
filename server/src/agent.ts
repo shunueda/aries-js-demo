@@ -1,5 +1,6 @@
 import {
   Agent,
+  ConnectionsModule,
   HttpOutboundTransport,
   InitConfig,
   WsOutboundTransport
@@ -14,13 +15,15 @@ const agentConfig: InitConfig = {
     id: `default`,
     key: 'key'
   },
+  endpoints: ['http://localhost:3001'],
   autoUpdateStorageOnStartup: true
 }
 
 const agent = new Agent({
   config: agentConfig,
   modules: {
-    indySdk: new IndySdkModule({ indySdk })
+    indySdk: new IndySdkModule({ indySdk }),
+    connections: new ConnectionsModule({ autoAcceptConnections: true })
   },
   dependencies: agentDependencies
 })
@@ -28,7 +31,7 @@ const agent = new Agent({
 // Register transports
 agent.registerOutboundTransport(new WsOutboundTransport())
 agent.registerOutboundTransport(new HttpOutboundTransport())
-// agent.registerInboundTransport(new HttpInboundTransport({ port: 4000 }))
+agent.registerInboundTransport(new HttpInboundTransport({ port: 3001 }))
 
 await agent.initialize()
 export default agent

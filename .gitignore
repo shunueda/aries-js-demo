@@ -147,3 +147,4 @@ dist
 # and uncomment the following lines
 # .pnp.*
 
+.bash_history

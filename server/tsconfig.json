@@ -29,5 +29,10 @@
     "dist",
     "test"
   ],
-  "noEmit": true
+  "noEmit": true,
+  "ts-node": {
+    "swc": true,
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+  }
 }

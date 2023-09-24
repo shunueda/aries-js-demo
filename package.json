@@ -1,4 +1,14 @@
 {
   "name": "root",
-  "packageManager": "yarn@3.6.3"
+  "private": true,
+  "workspaces": [
+    "demo",
+    "server"
+  ],
+  "scripts": {
+    "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|tsx)\" --write"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.3"
+  }
 }
