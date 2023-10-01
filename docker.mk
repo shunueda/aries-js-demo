@@ -9,7 +9,7 @@ docker_start:
 		-p 3000:3000 \
 		-p 4000:4000 \
 		-v /var/run/docker.sock:/var/run/docker.sock \
-		-v ~/dev/lehigh/cse/281/aries-frontend-demo:/root \
+		-v $(pwd):/root \
 		--name aries-frontend-demo-dev \
 		-it aries-frontend-demo
 
