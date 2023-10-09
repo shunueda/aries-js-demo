@@ -1,40 +1,54 @@
-import express from 'express'
-import agent from './agent'
-import multer from 'multer'
-import cors from 'cors'
+import Koa from 'koa'
+import Router from '@koa/router'
+import 'dotenv/config'
+import { indySdkHolder, sharedComponentsHolder } from './agent/holder'
+import { purgeDb } from './util/purgeDb'
+import { issuer } from './agent/issuer'
+import defineRoutes from './routes'
+import fetch from 'node-fetch'
+import createAndRegisterDidIndy from './feature/createAndRegisterDidIndy'
+import createAndRegisterSchema from './feature/createAndRegisterSchema'
+import createAndRegisterCredentialDefinintion from './feature/createAndRegisterCredentialDefinintion'
+import createConnection from './feature/createConnection'
+import offerAnoncredsCredential from './feature/offerAnoncredsCredential'
+import waitForCredentialInWallet from './feature/waitForCredentialInWallet'
+import migrate from './feature/migrate'
+import { verifier } from './agent/verifier'
+import requestAnoncredsProof from './feature/requestAnoncredsProof'
+import waitForProofShared from './feature/waitForProofShared'
 
-const app = express()
+const PORT = 8000
+const app = new Koa()
+const router = new Router()
 
-// Use multer middleware for parsing multipart/form-data
-const upload = multer().none()
+export const attrNames = ["name", "date of birth", "email", "occupation"]
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+defineRoutes(router)
 
-app.post('/api/wallet/open', upload, async (req, res) => {
-  console.log(req.body)
-  try {
-    await agent.wallet.close()
-  } catch (e) {}
-  console.log('Opening wallet...')
-  await agent.wallet
-    .open({
-      id: req.body.wallet_id,
-      key: req.body.wallet_key
-    })
-    .catch(() => {
-      res.status(400).json({ error: 'Invalid wallet ID or key' })
-    })
-  console.log(`${req.body.wallet_id} opened!`)
-  res.status(200).json(agent.wallet.walletConfig)
-})
+await purgeDb(sharedComponentsHolder)
+await indySdkHolder.initialize()
+await indySdkHolder.modules.anoncreds.createLinkSecret()
+await issuer.initialize()
 
-app.get('/api/dids', async (req, res) => {
-  const dids = (await agent.dids.getCreatedDids()).map(record => record.did)
-  res.status(200).json(dids)
-})
+const issuerDid = await createAndRegisterDidIndy(issuer, 'someseed000000000000000000000000')
+const schemaId = await createAndRegisterSchema(issuer, issuerDid, 'LEHIGH UNIV. - TEST SCHEMA', attrNames)
+const credentialDefinitionId = await createAndRegisterCredentialDefinintion(
+  issuer,
+  issuerDid,
+  schemaId
+)
+const connectionId = await createConnection(issuer, indySdkHolder)
+await offerAnoncredsCredential(issuer, connectionId, credentialDefinitionId)
+await waitForCredentialInWallet(indySdkHolder)
+await indySdkHolder.shutdown()
+await migrate(indySdkHolder, sharedComponentsHolder)
+await sharedComponentsHolder.initialize()
+await verifier.initialize()
+const cid = await createConnection(verifier, sharedComponentsHolder)
+await requestAnoncredsProof(verifier, cid)
+await waitForProofShared(sharedComponentsHolder)
 
-app.listen(4000, () => {
-  console.log('Server listening on port 4000')
-})
+app.use(router.routes())
+app.use(router.allowedMethods())
+app.listen(PORT)
+console.log(`Listening on port ${PORT}`)
