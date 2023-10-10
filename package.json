@@ -3,7 +3,8 @@
   "private": true,
   "workspaces": [
     "frontend",
-    "server"
+    "server",
+    "cli"
   ],
   "scripts": {
     "docker:build": "docker build --platform linux/amd64 -t aries-js-demo .",

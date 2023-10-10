@@ -3,7 +3,8 @@ import { Issuer } from '../agent/issuer'
 export default async function offerAnoncredsCredential(
   issuer: Issuer,
   connectionId: string,
-  credentialDefinitionId: string
+  credentialDefinitionId: string,
+  attributes: { name: string; value: string }[]
 ) {
   const dob = new Date()
   dob.setFullYear(new Date().getFullYear() - 25)
@@ -13,15 +14,7 @@ export default async function offerAnoncredsCredential(
     credentialFormats: {
       anoncreds: {
         credentialDefinitionId,
-        attributes: [
-          { name: "name", value: "John Doe" },
-          {
-            name: "date of birth",
-            value: dob.toISOString(),
-          },
-          { name: "email", value: "jane@anoncreds.ltd" },
-          { name: "occupation", value: "Credential Influencer" },
-        ],
+        attributes,
       },
     },
   })

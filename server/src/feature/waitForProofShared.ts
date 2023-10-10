@@ -8,7 +8,6 @@ export default async function waitForProofShared(
       ProofEventTypes.ProofStateChanged,
       async ({ payload }) => {
         if (payload.proofRecord.state === ProofState.Done) {
-          console.log('============= Presentation ==============')
           const formattedData = await agent.proofs.getFormatData(
             payload.proofRecord.id
           )
@@ -17,11 +16,6 @@ export default async function waitForProofShared(
             formattedData.presentation?.anoncreds.requested_proof
               .revealed_attr_groups.identity.values
           )
-          // @ts-ignore
-          items.forEach(([key, { raw }]) => {
-            console.log(`- ${key}: ${raw}`)
-          })
-          console.log('=========================================')
           resolve(payload.proofRecord)
         }
       }

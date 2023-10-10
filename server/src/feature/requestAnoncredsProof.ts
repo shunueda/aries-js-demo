@@ -3,7 +3,8 @@ import { attrNames } from '../index'
 
 export default async function requestAnoncredsProof(
   verifier: Verifier,
-  connectionId: string
+  connectionId: string,
+  attrNames: string[]
 ) {
   await verifier.proofs.requestProof({
     connectionId,
