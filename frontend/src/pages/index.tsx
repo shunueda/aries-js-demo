@@ -12,7 +12,7 @@ export default function Home() {
     const formData = new FormData(event.currentTarget)
     const response = await fetch('/api/submit', {
       method: 'POST',
-      body: formData,
+      body: formData
     })
     const data = await response.json()
   }
@@ -21,13 +21,13 @@ export default function Home() {
     <>
       <Head>
         <title>Create Next App</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <div>Register DID from seed</div>
         <form onSubmit={onSubmit}>
-          <input type="text" name="name" />
-          <button type="submit">Submit</button>
+          <input type='text' name='name' />
+          <button type='submit'>Submit</button>
         </form>
       </main>
     </>

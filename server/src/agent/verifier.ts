@@ -7,66 +7,59 @@ import {
   InitConfig,
   ProofsModule,
   V2ProofProtocol,
-  WsOutboundTransport,
-} from "@aries-framework/core"
-import { HttpInboundTransport, agentDependencies } from "@aries-framework/node"
-import { AskarModule } from "@aries-framework/askar"
-import {
-  IndyVdrAnonCredsRegistry,
-  IndyVdrIndyDidResolver,
-  IndyVdrModule,
-} from "@aries-framework/indy-vdr"
-import {
-  AnonCredsModule,
-  AnonCredsProofFormatService,
-} from "@aries-framework/anoncreds"
-import { AnonCredsRsModule } from "@aries-framework/anoncreds-rs"
+  WsOutboundTransport
+} from '@aries-framework/core'
+import { agentDependencies, HttpInboundTransport } from '@aries-framework/node'
+import { AskarModule } from '@aries-framework/askar'
+import { IndyVdrAnonCredsRegistry, IndyVdrIndyDidResolver, IndyVdrModule } from '@aries-framework/indy-vdr'
+import { AnonCredsModule, AnonCredsProofFormatService } from '@aries-framework/anoncreds'
+import { AnonCredsRsModule } from '@aries-framework/anoncreds-rs'
 
-import { ariesAskar } from "@hyperledger/aries-askar-nodejs"
-import { indyVdr } from "@hyperledger/indy-vdr-nodejs"
-import { anoncreds } from "@hyperledger/anoncreds-nodejs"
+import { ariesAskar } from '@hyperledger/aries-askar-nodejs'
+import { indyVdr } from '@hyperledger/indy-vdr-nodejs'
+import { anoncreds } from '@hyperledger/anoncreds-nodejs'
 import { bcovrinTestNetwork } from '../network/bcovrinTestNetwork'
 
-const name = "verifier"
+const name = 'verifier'
 const config: InitConfig = {
   label: name,
-  endpoints: ["http://localhost:3010"],
+  endpoints: ['http://localhost:3010'],
   walletConfig: {
-    id: "hyperledger-afj-040-release-workshop-verifier",
-    key: "insecure-secret",
-  },
+    id: 'hyperledger-afj-040-release-workshop-verifier',
+    key: 'insecure-secret'
+  }
 }
 
 const modules = {
   askar: new AskarModule({ ariesAskar }),
   anoncreds: new AnonCredsModule({
-    registries: [new IndyVdrAnonCredsRegistry()],
+    registries: [new IndyVdrAnonCredsRegistry()]
   }),
   anoncredsRs: new AnonCredsRsModule({
-    anoncreds,
+    anoncreds
   }),
   dids: new DidsModule({
-    resolvers: [new IndyVdrIndyDidResolver()],
+    resolvers: [new IndyVdrIndyDidResolver()]
   }),
   indyVdr: new IndyVdrModule({
     indyVdr,
-    networks: [bcovrinTestNetwork],
+    networks: [bcovrinTestNetwork]
   }),
   connections: new ConnectionsModule({ autoAcceptConnections: true }),
   proofs: new ProofsModule({
     autoAcceptProofs: AutoAcceptProof.Always,
     proofProtocols: [
       new V2ProofProtocol({
-        proofFormats: [new AnonCredsProofFormatService()],
-      }),
-    ],
-  }),
+        proofFormats: [new AnonCredsProofFormatService()]
+      })
+    ]
+  })
 }
 
 export const verifier = new Agent<typeof modules>({
   config,
   modules,
-  dependencies: agentDependencies,
+  dependencies: agentDependencies
 })
 
 export type Verifier = typeof verifier

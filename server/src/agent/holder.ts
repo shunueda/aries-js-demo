@@ -11,103 +11,100 @@ import {
   V2CredentialProtocol,
   V2ProofProtocol,
   WsOutboundTransport
-} from "@aries-framework/core"
-import { IndySdkModule } from "@aries-framework/indy-sdk"
-import { HttpInboundTransport, agentDependencies } from "@aries-framework/node"
-import { AskarModule } from "@aries-framework/askar"
+} from '@aries-framework/core'
+import { IndySdkModule } from '@aries-framework/indy-sdk'
+import { agentDependencies, HttpInboundTransport } from '@aries-framework/node'
+import { AskarModule } from '@aries-framework/askar'
 
-import indySdk from "indy-sdk"
+import indySdk from 'indy-sdk'
 
-import { ariesAskar } from "@hyperledger/aries-askar-nodejs"
+import { ariesAskar } from '@hyperledger/aries-askar-nodejs'
 import {
   AnonCredsCredentialFormatService,
   AnonCredsModule,
-  AnonCredsProofFormatService, LegacyIndyCredentialFormatService
-} from "@aries-framework/anoncreds"
-import {
-  IndyVdrAnonCredsRegistry,
-  IndyVdrIndyDidResolver,
-  IndyVdrModule,
-} from "@aries-framework/indy-vdr"
-import { AnonCredsRsModule } from "@aries-framework/anoncreds-rs"
-import { anoncreds } from "@hyperledger/anoncreds-nodejs"
-import { indyVdr } from "@hyperledger/indy-vdr-nodejs"
+  AnonCredsProofFormatService,
+  LegacyIndyCredentialFormatService
+} from '@aries-framework/anoncreds'
+import { IndyVdrAnonCredsRegistry, IndyVdrIndyDidResolver, IndyVdrModule } from '@aries-framework/indy-vdr'
+import { AnonCredsRsModule } from '@aries-framework/anoncreds-rs'
+import { anoncreds } from '@hyperledger/anoncreds-nodejs'
+import { indyVdr } from '@hyperledger/indy-vdr-nodejs'
 import { bcovrinTestNetwork } from '../network/bcovrinTestNetwork'
 
-const name = "holder"
+const name = 'holder'
 const config: InitConfig = {
   label: name,
-  endpoints: ["http://localhost:3002"],
+  endpoints: ['http://localhost:3002'],
   walletConfig: {
-    id: "hyperledger-afj-040-release-workshop-holder",
-    key: "insecure-secret",
+    id: 'hyperledger-afj-040-release-workshop-holder',
+    key: 'insecure-secret'
   }
 }
 
 const indySdkModules = {
   indySdk: new IndySdkModule({ indySdk }),
   anoncreds: new AnonCredsModule({
-    registries: [new IndyVdrAnonCredsRegistry()],
+    registries: [new IndyVdrAnonCredsRegistry()]
   }),
   anoncredsRs: new AnonCredsRsModule({
-    anoncreds,
+    anoncreds
   }),
   dids: new DidsModule({
-    resolvers: [new IndyVdrIndyDidResolver()],
+    resolvers: [new IndyVdrIndyDidResolver()]
   }),
   indyVdr: new IndyVdrModule({
     indyVdr,
-    networks: [bcovrinTestNetwork],
+    networks: [bcovrinTestNetwork]
   }),
   connections: new ConnectionsModule({ autoAcceptConnections: true }),
   credentials: new CredentialsModule({
     autoAcceptCredentials: AutoAcceptCredential.Always,
     credentialProtocols: [
       new V2CredentialProtocol({
-        credentialFormats: [new LegacyIndyCredentialFormatService(), new AnonCredsCredentialFormatService()],
-      }),
-    ],
-  }),
+        credentialFormats: [new LegacyIndyCredentialFormatService(), new AnonCredsCredentialFormatService()]
+      })
+    ]
+  })
 }
 
 const sharedComponentsModules = {
   askar: new AskarModule({ ariesAskar }),
   anoncreds: new AnonCredsModule({
-    registries: [new IndyVdrAnonCredsRegistry()],
+    registries: [new IndyVdrAnonCredsRegistry()]
   }),
   anoncredsRs: new AnonCredsRsModule({
-    anoncreds,
+    anoncreds
   }),
   dids: new DidsModule({
-    resolvers: [new IndyVdrIndyDidResolver()],
+    resolvers: [new IndyVdrIndyDidResolver()]
   }),
   indyVdr: new IndyVdrModule({
     indyVdr,
-    networks: [bcovrinTestNetwork],
+    networks: [bcovrinTestNetwork]
   }),
   connections: new ConnectionsModule({ autoAcceptConnections: true }),
   credentials: new CredentialsModule({
     autoAcceptCredentials: AutoAcceptCredential.Always,
     credentialProtocols: [
       new V2CredentialProtocol({
-        credentialFormats: [new LegacyIndyCredentialFormatService(), new AnonCredsCredentialFormatService()],
-      }),
-    ],
+        credentialFormats: [new LegacyIndyCredentialFormatService(), new AnonCredsCredentialFormatService()]
+      })
+    ]
   }),
   proofs: new ProofsModule({
     autoAcceptProofs: AutoAcceptProof.Always,
     proofProtocols: [
       new V2ProofProtocol({
-        proofFormats: [new AnonCredsProofFormatService()],
-      }),
-    ],
-  }),
+        proofFormats: [new AnonCredsProofFormatService()]
+      })
+    ]
+  })
 }
 
 export const indySdkHolder = new Agent<typeof indySdkModules>({
   config,
   modules: indySdkModules,
-  dependencies: agentDependencies,
+  dependencies: agentDependencies
 })
 
 export type Holder = typeof indySdkHolder
@@ -116,7 +113,7 @@ export const sharedComponentsHolder = new Agent<typeof sharedComponentsModules>(
   {
     config,
     modules: sharedComponentsModules,
-    dependencies: agentDependencies,
+    dependencies: agentDependencies
   }
 )
 

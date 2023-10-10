@@ -8,7 +8,7 @@ export default async function migrate(fromAgent: Agent, toAgent: Agent) {
   }/sqlite.db`
   const updater = await IndySdkToAskarMigrationUpdater.initialize({
     dbPath: fromDbPath,
-    agent: toAgent,
+    agent: toAgent
   })
   await updater.update()
 }

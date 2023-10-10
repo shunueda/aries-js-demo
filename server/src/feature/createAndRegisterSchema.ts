@@ -6,11 +6,11 @@ export default async function createAndRegisterSchema(issuer: Issuer, did: strin
       attrNames: attrNames,
       issuerId: did,
       name: name,
-      version: version || `1.0.${Math.floor(Math.random() * 1000)}`,
+      version: version || `1.0.${Math.floor(Math.random() * 1000)}`
     },
-    options: {},
+    options: {}
   })
-  if (schemaResult.schemaState.state === "failed") {
+  if (schemaResult.schemaState.state === 'failed') {
     throw new Error(`Error creating schema: ${schemaResult.schemaState.reason}`)
   }
   return schemaResult.schemaState.schemaId!

@@ -7,69 +7,70 @@ import {
   HttpOutboundTransport,
   InitConfig,
   V2CredentialProtocol,
-  WsOutboundTransport,
-} from "@aries-framework/core"
-import { HttpInboundTransport, agentDependencies } from "@aries-framework/node"
-import { AskarModule } from "@aries-framework/askar"
+  WsOutboundTransport
+} from '@aries-framework/core'
+import { agentDependencies, HttpInboundTransport } from '@aries-framework/node'
+import { AskarModule } from '@aries-framework/askar'
 
-import { ariesAskar } from "@hyperledger/aries-askar-nodejs"
+import { ariesAskar } from '@hyperledger/aries-askar-nodejs'
 import {
   AnonCredsCredentialFormatService,
-  AnonCredsModule, LegacyIndyCredentialFormatService
-} from "@aries-framework/anoncreds"
+  AnonCredsModule,
+  LegacyIndyCredentialFormatService
+} from '@aries-framework/anoncreds'
 import {
   IndyVdrAnonCredsRegistry,
   IndyVdrIndyDidRegistrar,
   IndyVdrIndyDidResolver,
-  IndyVdrModule,
-} from "@aries-framework/indy-vdr"
-import { anoncreds } from "@hyperledger/anoncreds-nodejs"
-import { AnonCredsRsModule } from "@aries-framework/anoncreds-rs"
-import { indyVdr } from "@hyperledger/indy-vdr-nodejs"
+  IndyVdrModule
+} from '@aries-framework/indy-vdr'
+import { anoncreds } from '@hyperledger/anoncreds-nodejs'
+import { AnonCredsRsModule } from '@aries-framework/anoncreds-rs'
+import { indyVdr } from '@hyperledger/indy-vdr-nodejs'
 import { bcovrinTestNetwork } from '../network/bcovrinTestNetwork'
 
-const name = "issuer"
+const name = 'issuer'
 const config: InitConfig = {
   label: name,
-  endpoints: ["http://localhost:3001"],
+  endpoints: ['http://localhost:3001'],
   walletConfig: {
-    id: "hyperledger-afj-040-release-workshop-issuer",
-    key: "insecure-secret",
-  },
+    id: 'hyperledger-afj-040-release-workshop-issuer',
+    key: 'insecure-secret'
+  }
 }
 
 const modules = {
   askar: new AskarModule({ ariesAskar }),
   anoncreds: new AnonCredsModule({
-    registries: [new IndyVdrAnonCredsRegistry()],
+    registries: [new IndyVdrAnonCredsRegistry()]
   }),
   anoncredsRs: new AnonCredsRsModule({
-    anoncreds,
+    anoncreds
   }),
   dids: new DidsModule({
     registrars: [new IndyVdrIndyDidRegistrar()],
-    resolvers: [new IndyVdrIndyDidResolver()],
+    resolvers: [new IndyVdrIndyDidResolver()]
   }),
   indyVdr: new IndyVdrModule({
     indyVdr,
-    networks: [bcovrinTestNetwork],
+    networks: [bcovrinTestNetwork]
   }),
   connections: new ConnectionsModule({ autoAcceptConnections: true }),
   credentials: new CredentialsModule({
     autoAcceptCredentials: AutoAcceptCredential.Always,
     credentialProtocols: [
       new V2CredentialProtocol({
-        credentialFormats: [new LegacyIndyCredentialFormatService(), new AnonCredsCredentialFormatService()],
-      }),
-    ],
-  }),
+        credentialFormats: [new LegacyIndyCredentialFormatService(), new AnonCredsCredentialFormatService()]
+      })
+    ]
+  })
 }
 
 type IssuerModules = typeof modules
 export const issuer = new Agent<IssuerModules>({
   config,
   modules,
-  dependencies: agentDependencies,
+  dependencies: agentDependencies
 })
 
 export type Issuer = Agent<IssuerModules>

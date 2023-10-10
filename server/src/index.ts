@@ -5,7 +5,6 @@ import { indySdkHolder, sharedComponentsHolder } from './agent/holder'
 import { purgeDb } from './util/purgeDb'
 import { issuer } from './agent/issuer'
 import defineRoutes from './routes'
-import fetch from 'node-fetch'
 import createAndRegisterDidIndy from './feature/createAndRegisterDidIndy'
 import createAndRegisterSchema from './feature/createAndRegisterSchema'
 import createAndRegisterCredentialDefinintion from './feature/createAndRegisterCredentialDefinintion'
@@ -21,7 +20,7 @@ const PORT = 8000
 const app = new Koa()
 const router = new Router()
 
-export const attrNames = ["name", "date of birth", "email", "occupation"]
+export const attrNames = ['name', 'date of birth', 'email', 'occupation']
 
 defineRoutes(router)
 

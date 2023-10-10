@@ -1,5 +1,4 @@
 import { Verifier } from '../agent/verifier'
-import { attrNames } from '../index'
 
 export default async function requestAnoncredsProof(
   verifier: Verifier,
@@ -8,15 +7,15 @@ export default async function requestAnoncredsProof(
 ) {
   await verifier.proofs.requestProof({
     connectionId,
-    protocolVersion: "v2",
+    protocolVersion: 'v2',
     proofFormats: {
       anoncreds: {
         requested_attributes: {
-          identity: { names: attrNames },
+          identity: { names: attrNames }
         },
-        name: "Signup",
-        version: "2",
-      },
-    },
+        name: 'Signup',
+        version: '2'
+      }
+    }
   })
 }
