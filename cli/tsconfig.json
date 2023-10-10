@@ -33,6 +33,6 @@
   "ts-node": {
     "swc": true,
     "esm": true,
-    "experimentalSpecifierResolution": "node",
+    "experimentalSpecifierResolution": "node"
   }
 }

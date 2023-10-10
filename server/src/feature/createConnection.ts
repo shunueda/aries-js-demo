@@ -3,7 +3,7 @@ import { Agent, ConnectionEventTypes, ConnectionStateChangedEvent } from '@aries
 export default async function createConnection(sender: Agent, recipient: Agent) {
   const outOfBandRecord = await sender.oob.createInvitation()
   const {
-    outOfBandRecord: { id },
+    outOfBandRecord: { id }
   } = await recipient.oob.receiveInvitation(outOfBandRecord.outOfBandInvitation)
   const hrwc = waitForConnection(recipient, id)
   const irwc = waitForConnection(sender, outOfBandRecord.id)
