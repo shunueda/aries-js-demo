@@ -19,20 +19,30 @@
     "strict": true,
     "strictFunctionTypes": true,
     "target": "esnext",
-    "downlevelIteration": true
-  },
-  "include": [
-    "./src/**/*"
-  ],
-  "exclude": [
-    "build",
-    "dist",
-    "test"
-  ],
-  "noEmit": true,
-  "ts-node": {
-    "swc": true,
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
+    "downlevelIteration": true,
+    "paths": {
+      "feature/*": [
+        "../server/src/feature/*"
+      ],
+      "agent/*": [
+        "../server/src/agent/*"
+      ],
+      "util/*": [
+        "../server/src/util/*"
+      ]
+    },
+    "include": [
+      "./src/**/*"
+    ],
+    "exclude": [
+      "build",
+      "dist",
+      "test"
+    ],
+    "noEmit": true,
+    "ts-node": {
+      "swc": true,
+      "esm": true,
+      "experimentalSpecifierResolution": "node"
+    }
   }
-}

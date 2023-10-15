@@ -1,20 +1,24 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import styles from '@/styles/index.module.css'
 import 'dotenv/config'
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
+const API_URL = "http://localhost:4000"
+
 export default function Home() {
+  const [did, setDid] = useState('')
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    const response = await fetch('/api/submit', {
+    const response = await fetch(`${API_URL}/api/register`, {
       method: 'POST',
       body: formData
     })
     const data = await response.json()
+    setDid(data.did)
   }
 
   return (
@@ -23,11 +27,14 @@ export default function Home() {
         <title>Create Next App</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <div>Register DID from seed</div>
-        <form onSubmit={onSubmit}>
-          <input type='text' name='name' />
-          <button type='submit'>Submit</button>
+      <main className={styles.main}>
+        <h1 className={styles.header}>Register DID from seed</h1>
+        <form onSubmit={onSubmit} className={styles.form}>
+          <div className={styles.inputGroup}>
+            <input type='text' name='seed' className={styles.input} placeholder='Enter your seed...' />
+            <button type='submit' className={styles.button}>Submit</button>
+          </div>
+          {did && <p className={styles.didText}>Your DID: <span className={styles.didValue}>{did}</span></p>}
         </form>
       </main>
     </>
