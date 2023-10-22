@@ -1,10 +1,8 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/index.module.css'
+import styles from '../styles/Home.module.css'
 import 'dotenv/config'
 import { FormEvent, useState } from 'react'
-
-const inter = Inter({ subsets: ['latin'] })
 
 const API_URL = "http://localhost:4000"
 
