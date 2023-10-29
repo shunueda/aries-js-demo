@@ -11,7 +11,8 @@
     "docker:start": "docker run --privileged --rm --platform linux/amd64 -p 3000:3000 -p 4000:4000 -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root --name aries-js-demo-dev -it aries-js-demo",
     "docker:stop": "docker stop aries-js-demo-dev && sleep 1 && docker rmi -f aries-js-demo:latest",
     "docker:exec": "docker exec -it aries-js-demo-dev bash",
-    "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|tsx)\" --write"
+    "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|tsx)\" --write",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@types/node": "^18.11.17",
@@ -20,6 +21,11 @@
     "typescript": "latest"
   },
   "devDependencies": {
+    "husky": ">=6",
+    "lint-staged": ">=10",
     "prettier": "^3.0.3"
+  },
+  "lint-staged": {
+    "*.--write": "prettier --write"
   }
 }

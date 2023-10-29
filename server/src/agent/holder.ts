@@ -13,7 +13,12 @@ import {
   WsOutboundTransport
 } from '@aries-framework/core'
 import { IndySdkModule } from '@aries-framework/indy-sdk'
-import { agentDependencies, HttpInboundTransport } from '@aries-framework/node'
+import {
+  agentDependencies,
+  HttpInboundTransport,
+  IndySdkPostgresStorageConfig, IndySdkPostgresWalletScheme,
+  loadIndySdkPostgresPlugin
+} from '@aries-framework/node'
 import { AskarModule } from '@aries-framework/askar'
 
 import indySdk from 'indy-sdk'
@@ -32,13 +37,30 @@ import { indyVdr } from '@hyperledger/indy-vdr-nodejs'
 import { bcovrinTestNetwork } from '../network/bcovrinTestNetwork'
 
 const name = 'holder'
+
+const storageConfig = {
+  type: 'postgres_storage',
+  config: {
+    url: 'localhost:5432',
+    wallet_scheme: IndySdkPostgresWalletScheme.DatabasePerWallet,
+  },
+  credentials: {
+    account: 'postgres',
+    password: 'postgres',
+    admin_account: 'postgres',
+    admin_password: 'postgres',
+  },
+} satisfies IndySdkPostgresStorageConfig
+loadIndySdkPostgresPlugin(storageConfig.config, storageConfig.credentials)
+
 const config: InitConfig = {
   label: name,
   endpoints: ['http://localhost:3002'],
   walletConfig: {
     id: 'hyperledger-afj-040-release-workshop-holder',
-    key: 'insecure-secret'
-  }
+    key: 'insecure-secret',
+    storage: storageConfig
+  },
 }
 
 const indySdkModules = {
