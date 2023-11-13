@@ -1,5 +1,11 @@
 import { Verifier } from '../agent/verifier'
 
+/**
+ * Request an anoncreds proof
+ * @param verifier
+ * @param connectionId
+ * @param attrNames
+ */
 export default async function requestAnoncredsProof(
   verifier: Verifier,
   connectionId: string,

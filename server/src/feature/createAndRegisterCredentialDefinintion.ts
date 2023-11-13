@@ -1,5 +1,11 @@
 import { Issuer } from '../agent/issuer'
 
+/**
+ * Create and register a credential definition
+ * @param issuer
+ * @param issuerDid
+ * @param schemaId
+ */
 export default async function createAndRegisterCredentialDefinintion(issuer: Issuer,
                                                                      issuerDid: string,
                                                                      schemaId: string) {

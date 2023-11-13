@@ -3,6 +3,11 @@ import { KeyType, TypedArrayEncoder } from '@aries-framework/core'
 import fetchJson from '../util/fetch'
 import { RegisteredDid } from '../models/RegisteredDid'
 
+/**
+ * Create and register a DID Indy
+ * @param issuer
+ * @param seed
+ */
 export default async function createAndRegisterDidIndy(issuer: Issuer, seed: string) {
   const unqualifiedIndyDid = (await fetchJson<RegisteredDid>('http://test.bcovrin.vonx.io/register', {
     method: 'POST',

@@ -16,8 +16,9 @@
     "noImplicitThis": true,
     "outDir": "dist",
     "sourceMap": true,
-    "strict": true,
-    "strictFunctionTypes": true,
+    "strict": false,
+    "strictFunctionTypes": false,
+    "strictNullChecks": false,
     "target": "esnext",
     "downlevelIteration": true
   },
@@ -27,7 +28,8 @@
   "exclude": [
     "build",
     "dist",
-    "test"
+    "test",
+    "node_modules"
   ],
   "noEmit": true,
   "ts-node": {

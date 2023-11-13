@@ -1,5 +1,10 @@
 import { Agent, ConnectionEventTypes, ConnectionStateChangedEvent } from '@aries-framework/core'
 
+/**
+ * Create a connection between two agents
+ * @param sender
+ * @param recipient
+ */
 export default async function createConnection(sender: Agent, recipient: Agent) {
   const outOfBandRecord = await sender.oob.createInvitation()
   const {
