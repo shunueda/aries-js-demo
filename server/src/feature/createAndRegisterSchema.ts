@@ -1,5 +1,13 @@
 import { Issuer } from '../agent/issuer'
 
+/**
+ * Create and register a schema
+ * @param issuer
+ * @param did
+ * @param name
+ * @param attrNames
+ * @param version
+ */
 export default async function createAndRegisterSchema(issuer: Issuer, did: string, name: string, attrNames: string[], version?: string) {
   const schemaResult = await issuer.modules.anoncreds.registerSchema({
     schema: {

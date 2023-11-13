@@ -1,5 +1,9 @@
 import { Agent, ProofEventTypes, ProofExchangeRecord, ProofState, ProofStateChangedEvent } from '@aries-framework/core'
 
+/**
+ * Wait for a proof to be shared
+ * @param agent
+ */
 export default async function waitForProofShared(
   agent: Agent
 ): Promise<ProofExchangeRecord> {

@@ -1,5 +1,12 @@
 import { Issuer } from '../agent/issuer'
 
+/**
+ * Offer an anoncreds credential
+ * @param issuer
+ * @param connectionId
+ * @param credentialDefinitionId
+ * @param attributes
+ */
 export default async function offerAnoncredsCredential(
   issuer: Issuer,
   connectionId: string,

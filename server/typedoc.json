@@ -1,0 +1,19 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "./src/feature/index.ts"
+  ],
+  "exclude": [
+    "**/node_modules/**",
+    "../node_modules/**"
+  ],
+  "externalPattern": [
+    "**/node_modules/**",
+    "../node_modules/**"
+  ],
+  "excludeExternals": true,
+  "compilerOptions": {
+    "ignoreCompilerErrors": true
+  },
+  "out": "doc"
+}
