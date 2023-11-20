@@ -9,16 +9,7 @@ import { RegisteredDid } from '../models/RegisteredDid'
  * @param seed
  */
 export default async function createAndRegisterDidIndy(issuer: Issuer, seed: string) {
-  const unqualifiedIndyDid = (await fetchJson<RegisteredDid>('http://test.bcovrin.vonx.io/register', {
-    method: 'POST',
-    body: JSON.stringify({
-      role: 'ENDORSER',
-      alias: null,
-      did: null,
-      seed
-    })
-  })).did
-  const indyDid = `did:indy:bcovrin:test:${unqualifiedIndyDid}`
+  const indyDid = await createDidIndy(seed)
   await issuer.dids.import({
     did: indyDid,
     overwrite: true,
@@ -30,4 +21,17 @@ export default async function createAndRegisterDidIndy(issuer: Issuer, seed: str
     ]
   })
   return indyDid
+}
+
+export async function createDidIndy(seed: string) {
+  const unqualifiedIndyDid = (await fetchJson<RegisteredDid>('http://test.bcovrin.vonx.io/register', {
+    method: 'POST',
+    body: JSON.stringify({
+      role: 'ENDORSER',
+      alias: null,
+      did: null,
+      seed
+    })
+  })).did
+  return `did:indy:bcovrin:test:${unqualifiedIndyDid}`
 }
